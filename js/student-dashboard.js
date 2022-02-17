@@ -28,7 +28,7 @@ $.ajax({
               <td>${el.course_teacher.id}</td>
               <td>${el.course_teacher.teacher.teacherName}</td>
               <td>
-              <a href="../course_detail.html" target="_blank">   <button class="admin-dashboard-button-2ndsec">
+              <a href="../course_detail.html?${el.id}" target="_blank">   <button class="admin-dashboard-button-2ndsec">
                 View Course Details
                   </button> </a> 
 
@@ -37,7 +37,7 @@ $.ajax({
           `)
           })      
           
-          $(`#student-user`).innerHtml(`${user.username}`)
+          // $(`#student-user`).innerHtml(`${user.username}`)
                     
         })
 

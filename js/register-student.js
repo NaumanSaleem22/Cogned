@@ -61,7 +61,7 @@ window.onload = function(){
     
             $.ajax({    
                 method: "POST",
-                url: `http://localhost:1337/auth/local/register`,
+                url: `http://localhost:1337/students-create`,
                 dataType:"Json",
                 data: data1,
               }).done(function (user) {
