@@ -4,6 +4,9 @@
 //     });
 // }
 var getUser = JSON.parse( localStorage.getItem('login-details'));
+document.getElementById("student-name").innerHTML=getUser.user.username;
+document.getElementById("student-user").innerHTML=getUser.user.email;
+// document.getElementById("courses-enrolled").innerHTML=getUser.courses.length;
 
 console.log(getUser);
 $.ajax({
@@ -15,9 +18,11 @@ $.ajax({
           url: `http://localhost:1337/users/${getUser.user.id}`
           
         }).done(function (msg) {
-          var students , teacher;
+          var students ;
           students = msg
           console.log(msg.courses);
+    
+       
           msg.courses.map((el) => {
             $(`#student-table-details`).append(
               
