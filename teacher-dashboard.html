@@ -40,8 +40,11 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="#">Courses</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Logout</a>
+                            <li class="nav-item logout">
+                                <a class="nav-link logout-btn" href="#" >Logout</a>
+                            </li>
+                            <li class="nav-item login">
+                                <a class="nav-link" href="./login.html" >login</a>
                             </li>
 
                         </ul>
@@ -64,7 +67,7 @@
                                     </div>
                                     <div>
 
-                                        <h4 class="p-0 m-0"> Welcome Back,Teacher!</h4>
+                                        <h4 class="p-0 m-0"> Welcome Back,<span id="teacher-name">Student!</span></h4>
 
 
                                     </div>
@@ -124,8 +127,8 @@
                                           <tr>
                                             <th scope="col">Course Id</th>
                                             <th scope="col">Course Name</th>
-                                            <th scope="col">Student Id</th>
-                                            <th scope="col">Student Name</th>
+                                            <th scope="col">Course Description</th>
+                                           
                                             <th scope="col">Course Details</th>
                                           </tr>
                                         </thead>
@@ -144,7 +147,7 @@
 
                                         </div>
                                         <div class="profile-details-dashboard">
-                                            <h4 class="p-0 m-0"> Teacher </h4>
+                                            <h4 class="p-0 m-0" id="teacher-user"> Teacher </h4>
                                             <p class="text-muted">
                                                 Karachi - Pakistan
                                             </p>
@@ -179,6 +182,9 @@
         </div>
     </section>
     <script type="text/javascript" src="../js/teacher-dashboard.js">
+
+    </script>
+    <script type="text/javascript" src="../js/logout.js">
 
     </script>
 </body>

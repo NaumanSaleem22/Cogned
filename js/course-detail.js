@@ -18,8 +18,8 @@ $.ajax({
     document.getElementById('course-title').innerHTML = msg.courseName;
     document.getElementById('course-title2').innerHTML = msg.courseName;
     document.getElementById('course-description').innerHTML = msg.courseDetail;
-    document.getElementById('course-teacher').innerHTML = msg.course_teacher.teacher.teacherName;
-    document.getElementById('teacher-name').innerHTML = msg.course_teacher.teacher.teacherName;
-    document.getElementById('teacher-name2').innerHTML = msg.course_teacher.teacher.teacherName;
+    document.getElementById('course-teacher').innerHTML = msg.course_teacher.teacherName;
+    document.getElementById('teacher-name').innerHTML = msg.course_teacher.teacherName;
+    document.getElementById('teacher-name2').innerHTML = msg.course_teacher.teacherName;
 
   })

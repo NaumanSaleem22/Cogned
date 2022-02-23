@@ -48,8 +48,8 @@ window.onload = function(){
                     window.location.href = 'student-dashboard.html'
                 } else if(user.user.role.name === 'Teacher'){
                     window.location.href = 'teacher-dashboard.html'
-                } else if(user.user.role.name === 'AdminOrgs'){
-                    window.location.href = `admin-dashboard.html`
+                } else if(user.user.role.name === 'Admin'){
+                    window.location.href = `../admin-dashboard.html`
                 }
                 
                 

@@ -4,7 +4,8 @@
 //     });
 // }
 var getUser = JSON.parse( localStorage.getItem('login-details'));
-
+document.getElementById("teacher-name").innerHTML=getUser.user.username;
+document.getElementById("teacher-user").innerHTML=getUser.user.email;
 console.log(getUser);
 $.ajax({
           method: "GET",
@@ -21,9 +22,9 @@ $.ajax({
      
             $.ajax({
               method: "GET",
-              url: `http://localhost:1337/courses?teacher.id=${msg.teacher.id}`
+              url: `http://localhost:1337/courses?course_teacher.teacherName=${msg.username}`
               
-            }).done((data) => {console.log("salam" ,data);
+            }).done((data) => {console.log("courses" ,data)
               
             data.map((el) => {
               $(`#teacher-dashboard-table`).append(
@@ -32,12 +33,13 @@ $.ajax({
                 <tr>
                 <td>${el.id}</td>
                 <td>${el.courseName}</td>
-                <td>${el.course_teacher.id}</td>
-                <td>${el.course_teacher.teacher.teacherName}</td>
+                <td>${el.courseDetail.substring(0,40)}</td>
+                  
+
                 <td>
-                    <button class="admin-dashboard-button-2ndsec">
-                        View Course Details
-                    </button>
+                <a href="../course_detail.html?${el.id}" target="_blank">   <button class="admin-dashboard-button-2ndsec">
+                View Course Details
+                  </button> </a> 
   
                 </td>
             </tr>
