@@ -80,6 +80,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12">
                         <div class="inner_section_add_new">
@@ -109,11 +110,11 @@
                 "searchreplace visualblocks code fullscreen",
                 "insertdatetime media table contextmenu paste"
             ],
-            // paste_preprocess: function (plugin, args) {
-            //     console.log("Attempted to paste: ", args.content);
-            //     // replace copied text with empty string
-            //     args.content = '';
-            // },
+            paste_preprocess: function (plugin, args) {
+                console.log("Attempted to paste: ", args.content);
+                // replace copied text with empty string
+                args.content = '';
+            },
             toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
         });
     </script>
@@ -121,16 +122,48 @@
     <script>
         $(document).ready(function () {
             var cloneCount = 2;
-            var after = 1
+            var after = 1;
+            var inputfield = 1;
+            var iframe = 1;
             $("#question" + after).before('<h1>Question Number ' + after, '</h1>');
             $("#add_new").click(function () {
+                tinymce.remove();
                 $("#question1").clone().attr('id', 'question' + cloneCount++).insertAfter("#question" +
                     after);
                 after++;
+                $("#question" + after + " textarea").attr('id', 'mce_' + inputfield++);
+                $("#question" + after + " iframe").attr('id', 'mce_' + iframe++ + '_ifr');
                 $("#question" + after).before('<h1>Question Number ' + after, '</h1>');
+                $("#question" + iframe + " .mce-content-body").empty();
+                tinymce.init({
+                    selector: "textarea",
+                    plugins: [
+                        "advlist autolink lists link image charmap print preview anchor",
+                        "searchreplace visualblocks code fullscreen",
+                        "insertdatetime media table contextmenu paste"
+                    ],
+                    paste_preprocess: function (plugin, args) {
+                        console.log("Attempted to paste: ", args.content);
+                        // replace copied text with empty string
+                        args.content = '';
+                    },
+                    toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
+                });
             });
         });
     </script>
+
+    <script>
+        $("#btn_submit").click(function () {
+            function saveStaticDataToFile() {
+                var blob = new Blob(["Welcome to Websparrow.org."], {
+                    type: "text/plain;charset=utf-8"
+                });
+                saveAs(blob, "static.txt");
+            }
+        });
+    </script>
+
 
 </body>
 
