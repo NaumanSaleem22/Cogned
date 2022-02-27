@@ -95,15 +95,25 @@ $.ajax({
       <td>${el.id}</td>
       <td>${el.courseName}</td>
       <td>${el.courseDetail.substring(0, 40)}</td>
-     <td> <button class="admin-dashboard-button-adduser" data-id="${el.id}"> Add Student </button> </td>
+     <td> <button class="admin-dashboard-button-adduser" data-id="${el.id}" data-students='${JSON.stringify(el.students)}' > Add Student </button> </td>
 
   </tr>
   `)
   })
 
   $(".admin-dashboard-button-adduser").click(function () {
+    $('#student-select').children().remove()
+    $('.ms-options > ul > li').each(function () {
+    $(this).removeClass('selected')
+    $('.ms-options > ul > li > label > input').prop("checked", false)
+     
+    });
+    $('#ms-list-1 > button > span').empty()
+  
     $("#myModal").modal('show');
     $("#student-select").attr('data-courseid', $(this).attr('data-id'))
+    var studentbulao= JSON.parse($(this).attr('data-students'))
+    console.log(studentbulao,"student bulaaye")
     // For students
     $.ajax({
       method: "GET",
@@ -113,6 +123,16 @@ $.ajax({
     }).done(function (Student) {
       console.log("Data Saved For Student: ");
       console.log(Student);
+
+     
+      for(var i=Student.length-1; i>=0; i--){
+        for( var j=0; j<studentbulao.length; j++){
+          if(Student[i] && (Student[i].id === studentbulao[j].id)){
+            Student.splice(i, 1);
+          }
+      }
+      }
+      console.log(Student,"filtered array");
       Student.map((el) => {
 
         $("#student-select").append(
@@ -122,7 +142,7 @@ $.ajax({
 
       })
 
-      var ids = Courses.map((el) => el.id)
+      var ids = Student.map((el) => el.id)
 
       $('select[multiple]').each(function () {
         $('option', this).filter((_, e) => ids.includes(+e.value)).prop('selected', false);
@@ -132,13 +152,41 @@ $.ajax({
             placeholder: $(this).attr("title")
           }
         });
-        var d = $(this).val();
-       $("#save-changes-for-modal").click(function () {
-     
-        console.log(d, "selected Values")
-      })
+         
        
       });
+      let d =  []
+      $("#save-changes-for-modal").click(function () {
+        // $('select[multiple]').each(function(){
+        //   var a=$(this).filter(":selected").val()
+        //   console.log(a, "selected Values")
+        //   d.push($(this).filter(":selected").val())
+        // })
+        var options =$('select[multiple]').val()
+       var courseId= $('select[multiple]').attr('data-courseid')
+      
+       $.ajax({
+        method: "PUT",
+        url: `http://localhost:1337/courses/${courseId}`,
+        data: {
+          students :options
+        },
+      }).done(function (user) {
+        console.log(user, "Students posted : ");
+        
+        
+        
+      })
+      .fail(function(xhr) {
+        //Ajax request failed.
+        var errorMessage = eval("(" + xhr.responseText + ")");
+        $("#error").html(errorMessage.message)
+        console.log('Error - ' + errorMessage.message);
+  })
+    
+       console.log(options, "selected Values")
+       console.log(courseId, "selected Values")
+     })
  
 
     }).fail(function (xhr) {
